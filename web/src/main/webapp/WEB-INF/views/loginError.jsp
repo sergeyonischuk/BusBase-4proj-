@@ -5,7 +5,7 @@
 <body> <h1>Login Page</h1>
 <center>
     Wrong login or password
-        <a href="index.jsp">Start page</a>
+        <a href="../../index.jsp">Start page</a>
 </center>
 </body>
 </html>

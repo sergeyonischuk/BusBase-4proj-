@@ -11,13 +11,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class BusDAO extends UtilConn implements GenericDAO<Bus> {
+public class BusDAO extends FactoryDAO implements GenericDAO<Bus> {
+    private Connection connection;
 
+    public BusDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     public Bus getByID(String number){
         String sql = "SELECT * FROM buses WHERE number =?";
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);)
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);)
              {
             preparedStatement.setString(1, number);
 
@@ -47,8 +50,7 @@ public class BusDAO extends UtilConn implements GenericDAO<Bus> {
 
     public void changeConditionToBroken(String busID) {
         String sql = "UPDATE buses SET condition = REPAIR_NEEDED where number =?";
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, busID);
             preparedStatement.executeUpdate();
 

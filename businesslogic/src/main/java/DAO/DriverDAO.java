@@ -6,10 +6,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class DriverDAO extends UtilConn implements GenericDAO<Driver> {
+public class DriverDAO extends FactoryDAO implements GenericDAO<Driver> {
+    private Connection connection;
+
+    public DriverDAO(Connection connection) {
+        this.connection = connection;
+    }
+
     @Override
     public void add(Driver object){
 
@@ -22,8 +27,7 @@ public class DriverDAO extends UtilConn implements GenericDAO<Driver> {
 
     public Driver getByPasport(String id_pasport) {
         String sql = "SELECT * FROM drivers WHERE id_pasport =?";
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
              ){
             preparedStatement.setString(1, id_pasport);
             ResultSet rs = preparedStatement.executeQuery();

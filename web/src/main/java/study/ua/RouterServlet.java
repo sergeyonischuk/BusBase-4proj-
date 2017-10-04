@@ -12,7 +12,7 @@ import java.util.Map;
 
 import static study.ua.GlobalRequestHandler.HANDLERS;
 
-@WebServlet("/main/*")
+@WebServlet("/busbase/*")
 public class RouterServlet extends HttpServlet {
 
     @Override
@@ -28,7 +28,7 @@ public class RouterServlet extends HttpServlet {
     private void processRequest(HttpServletRequest request, HttpServletResponse response, Map<String, Command>
             mapping) {
         Command command = mapping.get(request.getRequestURI()
-                .replace("/main/", "")
+                .replace("/busbase/", "")
                 .replaceAll("/\\d+", ""));
         String pageName = null;
         try {

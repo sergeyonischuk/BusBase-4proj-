@@ -1,6 +1,7 @@
 package study.ua.commands.dispatcher;
 
 import DAO.ApplicationDAO;
+import DAO.FactoryDAO;
 import entityes.Application;
 import enums.Status;
 import study.ua.commands.Command;
@@ -14,7 +15,7 @@ import java.util.List;
 public class AllOpenAppCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        ApplicationDAO applicationDAO = new ApplicationDAO();
+        ApplicationDAO applicationDAO = new FactoryDAO().getApplicationDAO();
         List<Application> applications = applicationDAO.getAllwithStatus(Status.OPEN);
         req.setAttribute("applications", applications);
 

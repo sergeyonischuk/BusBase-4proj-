@@ -11,11 +11,11 @@ import enums.Status;
 import java.util.List;
 
 public class DispatcherService {
-    ConfirmedAppDAO confirmedAppDAO = new ConfirmedAppDAO();
-    ApplicationDAO applicationDAO = new ApplicationDAO();
-    DriverDAO driverDAO = new DriverDAO();
-    BusDriverDAO busDriverDAO = new BusDriverDAO();
-    BusDAO busDAO = new BusDAO();
+    ConfirmedAppDAO confirmedAppDAO = new FactoryDAO().getConfirmedAppDAO();
+    ApplicationDAO applicationDAO = new FactoryDAO().getApplicationDAO();
+    DriverDAO driverDAO = new FactoryDAO().getDriverDAO();
+    BusDriverDAO busDriverDAO = new FactoryDAO().getBusDriverDAO();
+    BusDAO busDAO = new FactoryDAO().getBusDAO();
 
     public List<Application> getApplicationsWithStatus(Status status) {
         return applicationDAO.getAllwithStatus(status);

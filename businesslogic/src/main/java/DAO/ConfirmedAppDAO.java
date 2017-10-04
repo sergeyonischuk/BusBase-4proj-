@@ -8,14 +8,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class ConfirmedAppDAO extends UtilConn {
+public class ConfirmedAppDAO extends FactoryDAO {
+    private Connection connection;
 
+    public ConfirmedAppDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     public void add(Application app, Driver driver) {
         String sql = "INSERT INTO confirmed_applications (application_id, driver_id) VALUES (?,?)";
 
-        try (Connection connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);){
 
             preparedStatement.setInt(1, app.getId());
             preparedStatement.setString(2, driver.getPasportID());
@@ -28,8 +31,7 @@ public class ConfirmedAppDAO extends UtilConn {
 
     public void changeStatus(Status status, int appID){
         String sql = "UPDATE applications SET status =? WHERE id =?";
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);){
 
             preparedStatement.setString(1, status.name());
             preparedStatement.setInt(2, appID);

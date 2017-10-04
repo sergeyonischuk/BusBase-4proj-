@@ -10,7 +10,7 @@
 Dispatcher menu page
     <br>
 <a href="allDrivers.jsp">List drivers</a><br>
-<a href="allOpenApp.jsp">List of open applications</a><br>
+<a href="/busbase/allOpenApp.jsp">List of open applications</a><br>
     <br>
     Delegate Application
     <br>

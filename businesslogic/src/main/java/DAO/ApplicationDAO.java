@@ -1,7 +1,6 @@
 package DAO;
 
 import entityes.Application;
-import entityes.Route;
 import enums.Grade;
 import enums.Status;
 
@@ -9,7 +8,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ApplicationDAO extends UtilConn implements GenericDAO<Application> {
+public class ApplicationDAO extends FactoryDAO implements GenericDAO<Application> {
+
+    private Connection connection;
+
+    public ApplicationDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     @Override
     public void add(Application object) {
@@ -26,8 +31,7 @@ public class ApplicationDAO extends UtilConn implements GenericDAO<Application> 
 
         String sql = "SELECT * FROM applications WHERE status =?";
 
-        try (Connection connection = getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql);
+        try (PreparedStatement statement = connection.prepareStatement(sql);
              ) {
             statement.setString(1, status.name());
             ResultSet rs = statement.executeQuery();
@@ -51,8 +55,7 @@ public class ApplicationDAO extends UtilConn implements GenericDAO<Application> 
     public Application getByID(int id) {
         String sql = "SELECT * FROM applications WHERE id =?";
 
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);){
 
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();

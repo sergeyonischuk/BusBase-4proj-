@@ -1,22 +1,23 @@
 package DAO;
 
 import entityes.Driver;
-import enums.Grade;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
-public class BusDriverDAO extends UtilConn {
+public class BusDriverDAO extends FactoryDAO {
+    private Connection connection;
 
+    public BusDriverDAO(Connection connection) {
+        this.connection = connection;
+    }
 
 
     public String getBusNumberByDriverID(String passport) {
         String sql = "SELECT bus_id FROM driver_bus WHERE driver_id =?";
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
 
             preparedStatement.setString(1, passport);
             ResultSet rs = preparedStatement.executeQuery();

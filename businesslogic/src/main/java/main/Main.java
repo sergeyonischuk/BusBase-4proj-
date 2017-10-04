@@ -1,12 +1,9 @@
 package main;
 
-import DAO.ApplicationDAO;
-import DAO.ConfirmedAppDAO;
-import DAO.DriverDAO;
+import DAO.*;
 import entityes.Application;
 import entityes.Driver;
 import entityes.Route;
-import DAO.RouteDAO;
 import enums.Status;
 import services.DispatcherService;
 import services.DriverService;
@@ -36,10 +33,10 @@ public class Main {
 //        System.out.println(list.get(1).getStatus());
 //        System.out.println(list.get(2).getRouteID());
 
-        ApplicationDAO applicationDAO = new ApplicationDAO();
-        List<Application> applications = applicationDAO.getAllwithStatus(Status.OPEN);
-        System.out.println(applications.size());
+        UserDAO userDAO = new FactoryDAO().getUserDAO();
 
+        boolean test = userDAO.checkUserByPassword("overlord", "12345");
+        System.out.println(test);
 
 //        System.out.println(driverDAO.getByPasport("ТЕ231321").getName() + " " + driverDAO.getByPasport("ТЕ231321").getPasportID());
 }

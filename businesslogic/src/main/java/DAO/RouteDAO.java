@@ -6,14 +6,18 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RouteDAO extends UtilConn implements GenericDAO<Route> {
+public class RouteDAO extends FactoryDAO implements GenericDAO<Route> {
+    private Connection connection;
+
+    public RouteDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     @Override
     public void add(Route route) {
         String sql = "INSERT INTO routes (id, city_dispatch, city_destination) VALUES (?,?,?)";
 
-        try (Connection connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
 
             preparedStatement.setInt(1, route.getId());
             preparedStatement.setString(2, route.getDispatchPlace());
@@ -30,8 +34,7 @@ public class RouteDAO extends UtilConn implements GenericDAO<Route> {
         List<Route> routeList = new ArrayList<>();
         String sql = "SELECT id, city_dispatch, city_destination FROM routes";
 
-        try (Connection connection = getConnection();
-             Statement statement = connection.createStatement();
+        try (Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery(sql);) {
 
             while (rs.next()) {
@@ -51,8 +54,7 @@ public class RouteDAO extends UtilConn implements GenericDAO<Route> {
     public Route getByID(int id){
         String sql = "SELECT * FROM routes WHERE id =?";
         Route route = new Route();
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
              ResultSet rs = preparedStatement.executeQuery();){
 
             preparedStatement.setInt(1, id);
@@ -73,8 +75,7 @@ public class RouteDAO extends UtilConn implements GenericDAO<Route> {
     public void update(Route route){
         String sql = "UPDATE routes SET city_dispatch=?, city_destination=? WHERE id=?";
 
-        try (Connection connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);){
 
             preparedStatement.setString(1, route.getDispatchPlace());
             preparedStatement.setString(2, route.getDestinationPlace());
@@ -87,8 +88,7 @@ public class RouteDAO extends UtilConn implements GenericDAO<Route> {
     @Override
     public void remove(Route route) {
         String sql = "DELETE FROM routes WHERE id =?";
-        try (Connection connection = getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);){
 
             preparedStatement.setInt(1, route.getId());
             preparedStatement.executeUpdate();

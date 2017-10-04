@@ -2,6 +2,7 @@ package services;
 
 import DAO.BusDAO;
 import DAO.BusDriverDAO;
+import DAO.FactoryDAO;
 import entityes.Bus;
 import entityes.Driver;
 import enums.Condition;
@@ -11,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BusDriverService {
-        BusDAO busDAO = new BusDAO();
-        BusDriverDAO busDriverDAO = new BusDriverDAO();
+        BusDAO busDAO = new FactoryDAO().getBusDAO();
+        BusDriverDAO busDriverDAO = new FactoryDAO().getBusDriverDAO();
 
     public List<String> allRollingStockForPrint(List<Driver> drivers) {
         List<String> res = new ArrayList<>();

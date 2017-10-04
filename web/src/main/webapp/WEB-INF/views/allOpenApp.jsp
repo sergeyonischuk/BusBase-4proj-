@@ -18,8 +18,6 @@
                 <td>
                     <a href="application/${i.getId()}">
                             ${i.getDescription()}</a></td>
-                            <td>${i.getPrice()}</td>
-                            <td>${i.getCategory()}</td>
             </tr>
         </c:forEach>
     </table>

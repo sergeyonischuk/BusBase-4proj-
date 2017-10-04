@@ -8,15 +8,18 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
 
-public class CityDAO extends UtilConn implements GenericDAO<City> {
+public class CityDAO extends FactoryDAO implements GenericDAO<City> {
 
+    private Connection connection;
 
+    public CityDAO(Connection connection) {
+        this.connection = connection;
+    }
     @Override
     public void add(City city) {
         String sql = "INSERT INTO cities (name) VALUES (?)";
 
-        try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);){
 
             preparedStatement.setString(1, city.getName());
             preparedStatement.executeUpdate();

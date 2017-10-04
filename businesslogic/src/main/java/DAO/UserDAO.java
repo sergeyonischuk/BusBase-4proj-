@@ -10,13 +10,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserDAO extends UtilConn implements GenericDAO{
-    private Connection connection = getConnection();
+public class UserDAO implements GenericDAO{
+    private Connection connection;
+
+    public UserDAO(Connection connection) {
+        this.connection = connection;
+    }
 
     public UserType getUserType(String login, String password) {
         UserType type = null;
-        try (PreparedStatement statement = connection.prepareStatement("SELECT type FROM user" +
-                " WHERE login=? AND password=?")) {
+        try (PreparedStatement statement = connection.prepareStatement("SELECT type FROM users WHERE login=? AND password=?")) {
             statement.setString(1, login);
             statement.setString(2, password);
             if (statement.execute()) {
@@ -44,8 +47,27 @@ public class UserDAO extends UtilConn implements GenericDAO{
         return null;
     }
 
-    public User getUserByLogin(String login) {
-        return null;
+    public boolean checkUserByPassword(String login, String password) {
+        User user = null;
+        String sql = "SELECT * FROM users WHERE login=? AND password=?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);)
+        {
+            preparedStatement.setString(1, login);
+            preparedStatement.setString(2, password);
+
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                String usr = rs.getString("login");
+                String pas = rs.getString("password");
+                if (usr.equals(login) && pas.equals(password)) {
+                    return  true;
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override

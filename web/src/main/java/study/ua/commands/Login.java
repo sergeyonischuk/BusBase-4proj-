@@ -1,5 +1,6 @@
 package study.ua.commands;
 
+import DAO.FactoryDAO;
 import DAO.UserDAO;
 import entityes.UserType;
 import services.SecurityService;
@@ -15,9 +16,9 @@ public class Login implements Command{
     public String execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String login = req.getParameter("username");
         String password = req.getParameter("password");
-        UserDAO userDAO = new UserDAO();
+        UserDAO userDAO = new FactoryDAO().getUserDAO();
         SecurityService securityService = new SecurityService();
-        boolean validateUser = securityService.checkUser(login, password);
+        boolean validateUser = securityService.validateUser(login, password);
 
         if (validateUser) {
             UserType type = userDAO.getUserType(login, password);
