@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-    <title>Title</title>
+    <title>All open applications</title>
 </head>
 <body>
 <form action="allOpenApp">

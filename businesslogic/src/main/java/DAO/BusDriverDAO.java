@@ -33,7 +33,21 @@ public class BusDriverDAO extends FactoryDAO {
         return null;
     }
 
-    public Driver getDriverIdByBusNumber(String busNumber) {
+    public String getDriverIdByBusNumber(String busNumber) {
+        String sql = "SELECT driver_id FROM driver_bus WHERE bus_id =?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+
+            preparedStatement.setString(1, busNumber);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                String driverID = rs.getString("driver_id");
+                return driverID;
+            }
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

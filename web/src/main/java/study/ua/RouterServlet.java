@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import static study.ua.GlobalRequestHandler.HANDLERS;
+import static study.ua.GlobalRequestHandler.POST_HANDLERS;
 
 @WebServlet("/busbase/*")
 public class RouterServlet extends HttpServlet {
@@ -22,26 +23,19 @@ public class RouterServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        processRequest(req, resp, HANDLERS);
+        processRequest(req, resp, POST_HANDLERS);
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response, Map<String, Command>
-            mapping) {
-        Command command = mapping.get(request.getRequestURI()
-                .replace("/busbase/", "")
+            mapping) throws ServletException, IOException {
+        Command command = mapping.get(request.getRequestURI().replace("/busbase/", "")
                 .replaceAll("/\\d+", ""));
-        String pageName = null;
-        try {
-            pageName = command.execute(request, response);
-        } catch (ServletException | IOException e) {
-            e.printStackTrace();
-        }
+        String pageName = command.execute(request, response);
 
         try {
             request.getRequestDispatcher("/WEB-INF/views/" + pageName).forward(request, response);
         } catch (ServletException | IOException e) {
             e.printStackTrace();
-
         }
     }
 }

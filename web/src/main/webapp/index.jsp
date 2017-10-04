@@ -5,7 +5,7 @@
 <body> <h1>Страница входа</h1>
 <center>
     <h2>Автостанция</h2>
-    <form action="/busbase/login" method="post">
+    <form action="busbase/menu" method="post">
         <br/>Username:<input type="text" name="username">
         <br/>Password:<input type="password" name="password">
         <br/><input type="submit" value="Submit">

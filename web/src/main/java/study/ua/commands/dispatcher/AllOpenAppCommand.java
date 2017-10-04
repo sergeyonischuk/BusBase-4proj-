@@ -17,6 +17,7 @@ public class AllOpenAppCommand implements Command {
     public String execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         ApplicationDAO applicationDAO = new FactoryDAO().getApplicationDAO();
         List<Application> applications = applicationDAO.getAllwithStatus(Status.OPEN);
+        System.out.println("PRIVEEEEEEEEEEEEEEEEEEET");
         req.setAttribute("applications", applications);
 
         return "allOpenApp.jsp";

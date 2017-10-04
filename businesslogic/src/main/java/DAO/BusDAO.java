@@ -2,13 +2,12 @@ package DAO;
 
 
 import entityes.Bus;
+import entityes.Route;
 import enums.Condition;
 import enums.Grade;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class BusDAO extends FactoryDAO implements GenericDAO<Bus> {
@@ -66,7 +65,24 @@ public class BusDAO extends FactoryDAO implements GenericDAO<Bus> {
 
     @Override
     public List<Bus> getAll(){
-        return null;
+        List<Bus> busList = new ArrayList<>();
+        String sql = "SELECT * FROM buses";
+
+        try (Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery(sql);) {
+
+            while (rs.next()) {
+                Bus bus = new Bus();
+                bus.setNumber(rs.getString("number"));
+                bus.setModel(rs.getString("model"));
+                bus.setGrade(Grade.valueOf(rs.getString("grade")));
+                bus.setCondition(Condition.valueOf(rs.getString("condition")));
+                busList.add(bus);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return busList;
     }
 
 

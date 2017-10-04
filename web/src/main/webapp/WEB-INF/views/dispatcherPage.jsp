@@ -4,13 +4,12 @@
     <title>Title</title>
 </head>
 <body>
-<form method = "POST" action = "DispatcherServlet">
 <b>Hello, dispatcher!</b>
     <br>
 Dispatcher menu page
     <br>
 <a href="allDrivers.jsp">List drivers</a><br>
-<a href="/busbase/allOpenApp.jsp">List of open applications</a><br>
+<a href="allOpenApp.jsp">List of open applications</a><br>
     <br>
     Delegate Application
     <br>
@@ -19,6 +18,5 @@ Dispatcher menu page
     Driver ID <input type = "text" name = "driverID">
     <br>
     <input type="submit" value="Delegate"><br>
-</form>
 </body>
 </html>

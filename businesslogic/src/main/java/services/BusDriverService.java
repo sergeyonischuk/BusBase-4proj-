@@ -2,6 +2,7 @@ package services;
 
 import DAO.BusDAO;
 import DAO.BusDriverDAO;
+import DAO.DriverDAO;
 import DAO.FactoryDAO;
 import entityes.Bus;
 import entityes.Driver;
@@ -13,6 +14,7 @@ import java.util.List;
 
 public class BusDriverService {
         BusDAO busDAO = new FactoryDAO().getBusDAO();
+        DriverDAO driverDAO = new FactoryDAO().getDriverDAO();
         BusDriverDAO busDriverDAO = new FactoryDAO().getBusDriverDAO();
 
     public List<String> allRollingStockForPrint(List<Driver> drivers) {
@@ -25,14 +27,16 @@ public class BusDriverService {
     }
 
     public List<Driver> getWorkingRollingStock() {
-        List<Bus> busesByGrade = busDAO.getAll();
+        List<Bus> buses = busDAO.getAll();
         List<Driver> drivers = new ArrayList<>();
 
-        for (int i = 0; i < busesByGrade.size(); i++) {
-            String busNumber = busesByGrade.get(i).getNumber();
+        for (int i = 0; i < buses.size(); i++) {
+            String busNumber = buses.get(i).getNumber();
             Bus bus = busDAO.getByID(busNumber);
+
             if (bus.getCondition() != Condition.REPAIR_NEEDED) {
-                drivers.add(busDriverDAO.getDriverIdByBusNumber(busNumber));
+                String passport = busDriverDAO.getDriverIdByBusNumber(busNumber);
+                drivers.add(driverDAO.getByPasport(passport));
             }
         }
         return drivers;
