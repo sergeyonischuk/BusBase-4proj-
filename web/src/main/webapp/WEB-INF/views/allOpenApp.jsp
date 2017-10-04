@@ -5,22 +5,23 @@
     <title>All open applications</title>
 </head>
 <body>
-<form action="allOpenApp">
-    <table>
-        <tr>
-            <th>id</th>
-            <th>route_id</th>
-            <th>grade</th>
-            <th>status</th>
-        </tr>
-        <c:forEach items="${applications}" var="i">
-            <tr>
-                <td>
-                    <a href="application/${i.getId()}">
-                            ${i.getDescription()}</a></td>
-            </tr>
-        </c:forEach>
-    </table>
-</form>
+privet
+<%--<form action="allOpenApp">--%>
+    <%--<table>--%>
+        <%--<tr>--%>
+            <%--<th>id</th>--%>
+            <%--<th>route_id</th>--%>
+            <%--<th>grade</th>--%>
+            <%--<th>status</th>--%>
+        <%--</tr>--%>
+        <%--<c:forEach items="${applications}" var="i">--%>
+            <%--<tr>--%>
+                <%--<td>--%>
+                    <%--<a href="application/${i.getId()}">--%>
+                            <%--${i.getDescription()}</a></td>--%>
+            <%--</tr>--%>
+        <%--</c:forEach>--%>
+    <%--</table>--%>
+<%--</form>--%>
 </body>
 </html>

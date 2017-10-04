@@ -8,8 +8,8 @@
     <br>
 Dispatcher menu page
     <br>
-<a href="allDrivers.jsp">List drivers</a><br>
-<a href="allOpenApp.jsp">List of open applications</a><br>
+<a href="allDrivers">List drivers</a><br>
+<a href="allOpenApp">List of open applications</a><br>
     <br>
     Delegate Application
     <br>
