@@ -2,7 +2,7 @@ package study.ua.commands;
 
 import DAO.FactoryDAO;
 import DAO.UserDAO;
-import entityes.UserType;
+import enums.UserType;
 import services.SecurityService;
 
 import javax.servlet.ServletException;
@@ -22,6 +22,7 @@ public class Login implements Command{
 
         if (validateUser) {
             UserType type = userDAO.getUserType(login, password);
+                req.getSession().setAttribute("username", login);
                 req.setAttribute("usertype", type);
                 req.getSession().setAttribute("type", type.name());
                 if (type.equals(UserType.DISPATCHER)) {
