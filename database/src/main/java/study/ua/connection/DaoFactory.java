@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
+
 public class FactoryDAO {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/busbase";
     private static final String DB_USERNAME = "root";
@@ -46,5 +47,8 @@ public class FactoryDAO {
     }
     public BusDriverDAO getBusDriverDAO() {
         return new BusDriverDAO(connection);
+    }
+    public DriverUserDAO getDriverUserDAO() {
+        return new DriverUserDAO(connection);
     }
 }

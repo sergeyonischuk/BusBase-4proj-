@@ -25,5 +25,19 @@ public class Bus {
         this.condition = condition;
     }
 
+    public String getNumber() {
+        return number;
+    }
 
+    public String getModel() {
+        return model;
+    }
+
+    public Grade getGrade() {
+        return grade;
+    }
+
+    public Condition getCondition() {
+        return condition;
+    }
 }

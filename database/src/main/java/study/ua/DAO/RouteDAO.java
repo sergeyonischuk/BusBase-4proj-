@@ -1,5 +1,7 @@
 package DAO;
 
+
+
 import entityes.Route;
 
 import java.sql.*;
@@ -51,24 +53,25 @@ public class RouteDAO extends FactoryDAO implements GenericDAO<Route> {
         return routeList;
     }
 
-    public Route getByID(int id){
+    public Route getByID (int id) {
         String sql = "SELECT * FROM routes WHERE id =?";
-        Route route = new Route();
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
-             ResultSet rs = preparedStatement.executeQuery();){
-
+        ){
             preparedStatement.setInt(1, id);
-
-            route.setId(rs.getInt("id"));
-            route.setDispatchPlace(rs.getString("city_dispatch"));
-            route.setDestinationPlace(rs.getString("city_destination"));
-
-            preparedStatement.executeUpdate();
-
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                String disp = rs.getString("city_dispatch");
+                String dest = rs.getString("city_destination");
+                return Route.builder()
+                        .id(id)
+                        .dispatchPlace(disp)
+                        .destinationPlace(dest)
+                        .build();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return route;
+        return null;
     }
 
     @Override

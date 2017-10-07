@@ -2,10 +2,12 @@ package DAO;
 
 import entityes.Application;
 import entityes.Driver;
+import enums.Grade;
 import enums.Status;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ConfirmedAppDAO extends FactoryDAO {
@@ -42,10 +44,20 @@ public class ConfirmedAppDAO extends FactoryDAO {
         }
     }
 
-    public Application getApplicationByDriverID(String driverID) {
-        String sql = "SELECT * FROM applications WHERE driver_id = ?";
-        //app must have "open" status.
-        return null;
-    }
+    public int getApplicationIDByDriverID(String driverID) {
+        String sql = "SELECT application_id FROM confirmed_applications WHERE driver_id = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ){
+            preparedStatement.setString(1, driverID);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                int appID  = rs.getInt("application_id");
 
+                return appID;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
 }

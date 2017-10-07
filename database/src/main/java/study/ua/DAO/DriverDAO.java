@@ -41,13 +41,12 @@ public class DriverDAO extends FactoryDAO implements GenericDAO<Driver> {
                         .secondName(secondname)
                         .build();
             }
-            preparedStatement.executeUpdate();
+//            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return null;
     }
-
     @Override
     public void update(Driver object) {
 

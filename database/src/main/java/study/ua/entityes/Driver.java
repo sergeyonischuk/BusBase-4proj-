@@ -13,6 +13,5 @@ public class Driver{
     private String name;
     private String secondName;
     private String pasportID;
-    private String password;
     private Bus bus;
 }

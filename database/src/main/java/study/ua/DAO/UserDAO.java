@@ -2,7 +2,7 @@ package DAO;
 
 
 import entityes.User;
-import entityes.UserType;
+import enums.UserType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

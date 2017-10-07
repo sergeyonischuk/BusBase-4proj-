@@ -35,7 +35,6 @@ public class ApplicationDAO extends FactoryDAO implements GenericDAO<Application
              ) {
             statement.setString(1, status.name());
             ResultSet rs = statement.executeQuery();
-
             while (rs.next()) {
                 applications.add(Application.builder()
                         .id(rs.getInt("id"))

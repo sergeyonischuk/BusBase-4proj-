@@ -4,15 +4,18 @@ import DAO.*;
 import entityes.Bus;
 import entityes.Driver;
 import enums.Condition;
+import org.apache.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BusDriverService {
+public class CommonService {
     private BusDAO busDAO = new FactoryDAO().getBusDAO();
     private DriverDAO driverDAO = new FactoryDAO().getDriverDAO();
     private BusDriverDAO busDriverDAO = new FactoryDAO().getBusDriverDAO();
     private ConfirmedAppDAO confirmedAppDAO = new FactoryDAO().getConfirmedAppDAO();
+
+    private static final Logger logger = Logger.getLogger(CommonService.class);
 
     public List<Driver> getWorkingRollingStock() {
         List<Bus> buses = busDAO.getAll();
