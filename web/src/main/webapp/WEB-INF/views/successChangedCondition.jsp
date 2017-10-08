@@ -1,12 +1,17 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: SOnischuk
+  Date: 08.10.2017
+  Time: 0:04
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Title</title>
 </head>
 <body>
-Application successfully closed!
-<br>
+Bus condition was changed!
 <br>
 <a href="driverMain">Back on main</a>
 </body>

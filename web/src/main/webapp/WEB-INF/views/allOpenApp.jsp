@@ -7,24 +7,34 @@
     <title>Dispatcher menu | All open applications</title>
 </head>
 <body>
-<form action="allOpenApp">
-    <table>
-        <tr>
-            <th>id</th>
-            <th>grade</th>
-            <th>status</th>
-            <th>Dispatch City</th>
-            <th>Destination City</th>
-        </tr>
-        <c:forEach items="${applications}" var="i" varStatus="loopCount">
+<c:choose>
+    <c:when test="${appRouteMap!=null}">
+        <table>
             <tr>
-                <td>${i.getId()}</td>
-                <td>${i.getGrade()}</td>
-                <td>${i.getStatus()}</td>
-                <%--<td>routes.getDispatchPlace: ${loopCount.routes} </td>--%>
-        </c:forEach>
-    </table>
-</form>
+                <th>id</th>
+                <th>grade</th>
+                <th>status</th>
+                <th>Dispatch City</th>
+                <th>Destination City</th>
+            </tr>
+            <c:forEach items="${appRouteMap}" var="i" varStatus="loopCount">
+            <tr>
+                <td>${i.key.getId()}</td>
+                <td>${i.key.getGrade()}</td>
+                <td>${i.key.getStatus()}</td>
+                <td>${i.value.getDispatchPlace()}</td>
+                <td>${i.value.getDestinationPlace()}</td>
+            </c:forEach>
+            </tr>
+        </table>
+        <br/>
+    </c:when>
+    <c:otherwise>
+        There is no open applications
+        <br />
+        <a href="dispatcherMain">Back on main</a>
+    </c:otherwise>
+</c:choose>
 <a href="dispatcherMain">Back on main</a>
 </body>
 </html>
