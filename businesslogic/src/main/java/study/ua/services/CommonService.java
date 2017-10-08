@@ -1,23 +1,23 @@
-package services;
+package study.ua.services;
 
-import DAO.*;
-import entityes.Bus;
-import entityes.Driver;
-import enums.Condition;
-import org.apache.log4j.Logger;
+import study.ua.DAO.*;
+import study.ua.connection.DaoFactory;
+import study.ua.entityes.Application;
+import study.ua.entityes.Bus;
+import study.ua.entityes.Driver;
+import study.ua.entityes.Route;
+import study.ua.enums.Condition;
 
 import java.util.ArrayList;
 import java.util.List;
-
 public class CommonService {
-    private BusDAO busDAO = new FactoryDAO().getBusDAO();
-    private DriverDAO driverDAO = new FactoryDAO().getDriverDAO();
-    private BusDriverDAO busDriverDAO = new FactoryDAO().getBusDriverDAO();
-    private ConfirmedAppDAO confirmedAppDAO = new FactoryDAO().getConfirmedAppDAO();
-
-    private static final Logger logger = Logger.getLogger(CommonService.class);
+    private DaoFactory daoFactory = new DaoFactory();
 
     public List<Driver> getWorkingRollingStock() {
+        BusDAO busDAO = daoFactory.getBusDAO();
+        DriverDAO driverDAO = daoFactory.getDriverDAO();
+        BusDriverDAO busDriverDAO = daoFactory.getBusDriverDAO();
+
         List<Bus> buses = busDAO.getAll();
         List<Driver> drivers = new ArrayList<>();
 
@@ -25,7 +25,7 @@ public class CommonService {
             String busNumber = bus.getNumber();
             Bus currentBus = busDAO.getByID(busNumber);
 
-            if (currentBus.getCondition() != Condition.REPAIR_NEEDED) {
+                if (currentBus.getCondition() != Condition.REPAIR_NEEDED) {
                 String passport = busDriverDAO.getDriverIdByBusNumber(busNumber);
                 Driver driver = driverDAO.getByPasport(passport);
                 driver.setBus(currentBus);
@@ -36,6 +36,7 @@ public class CommonService {
     }
 
     public int getAppIDbyDriverID(String id) {
+        ConfirmedAppDAO confirmedAppDAO = new DaoFactory().getConfirmedAppDAO();
         return confirmedAppDAO.getApplicationIDByDriverID(id);
     }
 
@@ -47,4 +48,13 @@ public class CommonService {
         return buses;
     }
 
+    public Application getAppByID(int id) {
+        ApplicationDAO applicationDAO = daoFactory.getApplicationDAO();
+        return applicationDAO.getByID(id);
+    }
+
+    public Route getRouteByID(int id) {
+        RouteDAO routeDAO = daoFactory.getRouteDAO();
+        return routeDAO.getByID(id);
+    }
 }

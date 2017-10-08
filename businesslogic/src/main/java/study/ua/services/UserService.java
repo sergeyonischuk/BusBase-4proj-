@@ -7,7 +7,7 @@ import study.ua.DAO.UserDAO;
 import study.ua.entityes.User;
 import study.ua.enums.UserType;
 @Log4j
-public class SecurityService {
+public class UserService {
     private DaoFactory daoFactory = new DaoFactory();
 
     public boolean validateUser(String name, String password) {
