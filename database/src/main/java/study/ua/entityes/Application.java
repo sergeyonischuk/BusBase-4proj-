@@ -1,7 +1,9 @@
-package entityes;
+package study.ua.entityes;
 
-import enums.Grade;
-import enums.Status;
+import lombok.extern.log4j.Log4j;
+import lombok.extern.log4j.Log4j2;
+import study.ua.enums.Grade;
+import study.ua.enums.Status;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +23,6 @@ public class Application {
         this.routeID = routeID;
         this.grade = grade;
         this.status = status;
-    }
 
+    }
 }

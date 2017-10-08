@@ -1,6 +1,7 @@
-package entityes;
+package study.ua.entityes;
 
-import enums.UserType;
+import lombok.extern.log4j.Log4j;
+import study.ua.enums.UserType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

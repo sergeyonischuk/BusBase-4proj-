@@ -1,7 +1,8 @@
-package entityes;
+package study.ua.entityes;
 
-import enums.Grade;
-import enums.Condition;
+import lombok.extern.log4j.Log4j;
+import study.ua.enums.Grade;
+import study.ua.enums.Condition;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
