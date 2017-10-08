@@ -1,4 +1,6 @@
-package DAO;
+package study.ua.DAO;
+
+import lombok.extern.log4j.Log4j;
 
 import java.sql.SQLException;
 import java.util.List;

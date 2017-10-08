@@ -1,56 +1,75 @@
-package DAO;
+package study.ua.DAO;
 
 
-import entityes.User;
-import enums.UserType;
+import lombok.extern.log4j.Log4j;
+import org.apache.log4j.Logger;
+import study.ua.connection.ConnectionPool;
+import study.ua.entityes.User;
+import study.ua.enums.UserType;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
+@Log4j
 public class UserDAO implements GenericDAO{
-    private Connection connection;
+    private ConnectionPool connectionPool = ConnectionPool.getConnectionPoolInstance();
 
-    public UserDAO(Connection connection) {
-        this.connection = connection;
-    }
-
-    public UserType getUserType(String login, String password) {
+    public UserType getUserType(String login) {
         UserType type = null;
-        try (PreparedStatement statement = connection.prepareStatement("SELECT type FROM users WHERE login=? AND password=?")) {
-            statement.setString(1, login);
-            statement.setString(2, password);
-            if (statement.execute()) {
-                ResultSet rs = statement.executeQuery();
+        String sql = "SELECT type FROM users WHERE login=?";
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+
+            preparedStatement.setString(1, login);
+            if (preparedStatement.execute()) {
+                ResultSet rs = preparedStatement.executeQuery();
                 rs.next();
                 type = UserType.valueOf(rs.getString("type").toUpperCase());
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e);
         }
         return type;
     }
 
     @Override
-    public void add(Object object) throws SQLException {
+    public void add(Object object) {
 
     }
 
     @Override
-    public List getAll() throws SQLException {
+    public List getAll() {
         return null;
     }
 
-    public User getUserByName(String username, String password) {
+    public User getUserByName(String login) {
+        String sql = "SELECT * FROM users WHERE login=?";
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);)
+        {
+            preparedStatement.setString(1, login);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                String pas = rs.getString("password");
+                UserType type = UserType.valueOf(rs.getString("type"));
+                return User.builder()
+                        .login(login)
+                        .password(pas)
+                        .type(type)
+                        .build();
+            }
+        } catch (SQLException e) {
+            log.error(e);
+        }
         return null;
     }
 
     public boolean checkUserByPassword(String login, String password) {
-        User user = null;
         String sql = "SELECT * FROM users WHERE login=? AND password=?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);)
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);)
         {
             preparedStatement.setString(1, login);
             preparedStatement.setString(2, password);
@@ -65,18 +84,18 @@ public class UserDAO implements GenericDAO{
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e);
         }
         return false;
     }
 
     @Override
-    public void update(Object object) throws SQLException {
+    public void update(Object object) {
 
     }
 
     @Override
-    public void remove(Object object) throws SQLException {
+    public void remove(Object object) {
 
     }
 }

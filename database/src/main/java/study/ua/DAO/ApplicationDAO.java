@@ -1,20 +1,18 @@
-package DAO;
+package study.ua.DAO;
 
-import entityes.Application;
-import enums.Grade;
-import enums.Status;
+import lombok.extern.log4j.Log4j;
+import org.apache.log4j.Logger;
+import study.ua.connection.ConnectionPool;
+import study.ua.entityes.Application;
+import study.ua.enums.Grade;
+import study.ua.enums.Status;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-public class ApplicationDAO extends FactoryDAO implements GenericDAO<Application> {
-
-    private Connection connection;
-
-    public ApplicationDAO(Connection connection) {
-        this.connection = connection;
-    }
+@Log4j
+public class ApplicationDAO implements GenericDAO<Application> {
+    private ConnectionPool connectionPool = ConnectionPool.getConnectionPoolInstance();
 
     @Override
     public void add(Application object) {
@@ -31,10 +29,10 @@ public class ApplicationDAO extends FactoryDAO implements GenericDAO<Application
 
         String sql = "SELECT * FROM applications WHERE status =?";
 
-        try (PreparedStatement statement = connection.prepareStatement(sql);
-             ) {
-            statement.setString(1, status.name());
-            ResultSet rs = statement.executeQuery();
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+            preparedStatement.setString(1, status.name());
+            ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 applications.add(Application.builder()
                         .id(rs.getInt("id"))
@@ -46,7 +44,7 @@ public class ApplicationDAO extends FactoryDAO implements GenericDAO<Application
             }
             return applications;
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e);
         }
         return null;
     }
@@ -54,12 +52,13 @@ public class ApplicationDAO extends FactoryDAO implements GenericDAO<Application
     public Application getByID(int id) {
         String sql = "SELECT * FROM applications WHERE id =?";
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
 
             preparedStatement.setInt(1, id);
             ResultSet rs = preparedStatement.executeQuery();
 
-            if(rs.next()) {
+            if (rs.next()) {
                 int routeID = rs.getInt("route_id");
                 Grade grade = Grade.valueOf(rs.getString("Grade"));
                 Status status = Status.valueOf(rs.getString("Status"));
@@ -71,7 +70,7 @@ public class ApplicationDAO extends FactoryDAO implements GenericDAO<Application
                         .build();
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e);
         }
         return null;
     }
@@ -81,23 +80,8 @@ public class ApplicationDAO extends FactoryDAO implements GenericDAO<Application
 
     }
 
-//    public void upgradeStatus(Status status, Application application) {
-//        String sql = "UPDATE applications SET status=? WHERE id =?";
-//
-//        try (Connection connection = getConnection();
-//             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
-//
-//            preparedStatement.setString(1, status.name());
-//            preparedStatement.setInt(2, application.getId());
-//
-//            preparedStatement.executeUpdate();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
     @Override
-    public void remove(Application application){
+    public void remove(Application application) {
 
     }
 }

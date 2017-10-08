@@ -1,25 +1,23 @@
-package DAO;
+package study.ua.DAO;
 
 
-import entityes.Bus;
-import entityes.Route;
-import enums.Condition;
-import enums.Grade;
+import lombok.extern.log4j.Log4j;
+import study.ua.connection.ConnectionPool;
+import study.ua.entityes.Bus;
+import study.ua.enums.Condition;
+import study.ua.enums.Grade;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+@Log4j
+public class BusDAO  implements GenericDAO<Bus> {
+    private ConnectionPool connectionPool = ConnectionPool.getConnectionPoolInstance();
 
-public class BusDAO extends FactoryDAO implements GenericDAO<Bus> {
-    private Connection connection;
-
-    public BusDAO(Connection connection) {
-        this.connection = connection;
-    }
-
-    public Bus getByID(String number){
+    public Bus getByID(String number) {
         String sql = "SELECT * FROM buses WHERE number =?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);)
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);)
              {
             preparedStatement.setString(1, number);
 
@@ -36,9 +34,8 @@ public class BusDAO extends FactoryDAO implements GenericDAO<Bus> {
                         .build();
             }
             preparedStatement.executeUpdate();
-
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e);
         }
         return null;
     }
@@ -47,10 +44,13 @@ public class BusDAO extends FactoryDAO implements GenericDAO<Bus> {
         return null;
     }
 
-    public void changeConditionToBroken(String busID) {
-        String sql = "UPDATE buses SET condition = REPAIR_NEEDED where number =?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, busID);
+    public void changeCondition(String busID, Condition condition) {
+        String sql = "UPDATE buses SET `condition` =? where number =?";
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+
+            preparedStatement.setString(1, condition.name());
+            preparedStatement.setString(2, busID);
             preparedStatement.executeUpdate();
 
         } catch (SQLException e) {
@@ -64,13 +64,14 @@ public class BusDAO extends FactoryDAO implements GenericDAO<Bus> {
     }
 
     @Override
-    public List<Bus> getAll(){
+    public List<Bus> getAll() {
         List<Bus> busList = new ArrayList<>();
         String sql = "SELECT * FROM buses";
 
-        try (Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery(sql);) {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
+             ResultSet rs = preparedStatement.executeQuery(sql);) {
             while (rs.next()) {
                 Bus bus = new Bus();
                 bus.setNumber(rs.getString("number"));
@@ -80,11 +81,10 @@ public class BusDAO extends FactoryDAO implements GenericDAO<Bus> {
                 busList.add(bus);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e);
         }
         return busList;
     }
-
 
     @Override
     public void update(Bus object){

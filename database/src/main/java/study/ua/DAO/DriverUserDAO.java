@@ -1,17 +1,18 @@
-package DAO;
+package study.ua.DAO;
+
+import lombok.extern.log4j.Log4j;
+import org.apache.log4j.Logger;
+import study.ua.connection.ConnectionPool;
+import study.ua.connection.DaoFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
-public class DriverUserDAO extends FactoryDAO implements GenericDAO {
-    private Connection connection;
-
-    public DriverUserDAO(Connection connection) {
-        this.connection = connection;
-    }
+@Log4j
+public class DriverUserDAO implements GenericDAO {
+    private ConnectionPool connectionPool = ConnectionPool.getConnectionPoolInstance();
 
     @Override
     public void add(Object object) throws SQLException {
@@ -25,13 +26,13 @@ public class DriverUserDAO extends FactoryDAO implements GenericDAO {
 
     public String getDriverIdByUsername(String username) {
         String sql = "SELECT driver_id FROM driver_user WHERE user_login =?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
             preparedStatement.setString(1, username);
             ResultSet rs = preparedStatement.executeQuery();
 
             if (rs.next()) {
-                String driverID = rs.getString("driver_id");
-                return driverID;
+                return rs.getString("driver_id");
             }
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

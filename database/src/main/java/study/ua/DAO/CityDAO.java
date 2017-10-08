@@ -1,30 +1,31 @@
-package DAO;
+package study.ua.DAO;
 
-import entityes.City;
-import entityes.Route;
+import lombok.extern.log4j.Log4j;
+import org.apache.log4j.Logger;
+import study.ua.connection.ConnectionPool;
+import study.ua.connection.DaoFactory;
+import study.ua.entityes.City;
+import study.ua.entityes.Route;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+@Log4j
+public class CityDAO implements GenericDAO<City> {
+    private ConnectionPool connectionPool = ConnectionPool.getConnectionPoolInstance();
 
-public class CityDAO extends FactoryDAO implements GenericDAO<City> {
-
-    private Connection connection;
-
-    public CityDAO(Connection connection) {
-        this.connection = connection;
-    }
     @Override
     public void add(City city) {
         String sql = "INSERT INTO cities (name) VALUES (?)";
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+        try (Connection connection = connectionPool.getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);){
 
             preparedStatement.setString(1, city.getName());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            log.error(e);
         }
     }
 
