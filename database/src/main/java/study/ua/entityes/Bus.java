@@ -1,6 +1,5 @@
 package study.ua.entityes;
 
-import lombok.extern.log4j.Log4j;
 import study.ua.enums.Grade;
 import study.ua.enums.Condition;
 import lombok.Builder;

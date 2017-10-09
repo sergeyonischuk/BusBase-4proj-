@@ -1,15 +1,14 @@
 package study.ua.DAO;
 
 
-
 import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Logger;
 import study.ua.connection.ConnectionPool;
 import study.ua.entityes.Route;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 @Log4j
 public class RouteDAO implements GenericDAO<Route> {
     private ConnectionPool connectionPool = ConnectionPool.getConnectionPoolInstance();
@@ -55,7 +54,7 @@ public class RouteDAO implements GenericDAO<Route> {
         return routeList;
     }
 
-    public Route getByID (int id) {
+    public Route getByID(int id) {
         String sql = "SELECT * FROM routes WHERE id =?";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
@@ -83,7 +82,7 @@ public class RouteDAO implements GenericDAO<Route> {
         String sql = "UPDATE routes SET city_dispatch=?, city_destination=? WHERE id=?";
 
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
 
             preparedStatement.setString(1, route.getDispatchPlace());
             preparedStatement.setString(2, route.getDestinationPlace());
@@ -97,7 +96,7 @@ public class RouteDAO implements GenericDAO<Route> {
     public void remove(Route route) {
         String sql = "DELETE FROM routes WHERE id =?";
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
 
             preparedStatement.setInt(1, route.getId());
             preparedStatement.executeUpdate();

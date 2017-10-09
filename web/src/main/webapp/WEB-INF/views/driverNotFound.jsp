@@ -1,11 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: SOnischuk
-  Date: 07.10.2017
-  Time: 21:05
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
     <title>Driver not found</title>

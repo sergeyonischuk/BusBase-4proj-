@@ -10,15 +10,15 @@ import study.ua.enums.Grade;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 @Log4j
-public class BusDAO  implements GenericDAO<Bus> {
+public class BusDAO implements GenericDAO<Bus> {
     private ConnectionPool connectionPool = ConnectionPool.getConnectionPoolInstance();
 
     public Bus getByID(String number) {
         String sql = "SELECT * FROM buses WHERE number =?";
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);)
-             {
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
             preparedStatement.setString(1, number);
 
             ResultSet rs = preparedStatement.executeQuery();
@@ -45,7 +45,7 @@ public class BusDAO  implements GenericDAO<Bus> {
     }
 
     public void changeCondition(String busID, Condition condition) {
-        String sql = "UPDATE buses SET `condition` =? where number =?";
+        String sql = "UPDATE buses SET `condition` =? WHERE number =?";
         try (Connection connection = connectionPool.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
 
@@ -59,7 +59,7 @@ public class BusDAO  implements GenericDAO<Bus> {
     }
 
     @Override
-    public void add(Bus object){
+    public void add(Bus object) {
 
     }
 
@@ -87,12 +87,12 @@ public class BusDAO  implements GenericDAO<Bus> {
     }
 
     @Override
-    public void update(Bus object){
+    public void update(Bus object) {
 
     }
 
     @Override
-    public void remove(Bus object){
+    public void remove(Bus object) {
 
     }
 }

@@ -13,6 +13,7 @@ import java.util.Map;
 
 import static study.ua.GlobalRequestHandler.GET_HANDLERS;
 import static study.ua.GlobalRequestHandler.POST_HANDLERS;
+
 @Log4j
 @WebServlet("/busbase/*")
 public class RouterServlet extends HttpServlet {
@@ -32,7 +33,7 @@ public class RouterServlet extends HttpServlet {
 
         Command command = mapping.get(request.getRequestURI()
                 .replace("/busbase/", "")
-                .replaceAll("/\\d+", ""));
+                .replaceAll("/\\d+/\\?+", ""));
         if (command == null) {
             request.getRequestDispatcher("/WEB-INF/views/notfound.jsp").forward(request, response);
         } else {

@@ -1,9 +1,7 @@
 package study.ua.DAO;
 
 import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Logger;
 import study.ua.connection.ConnectionPool;
-import study.ua.connection.DaoFactory;
 import study.ua.entityes.City;
 import study.ua.entityes.Route;
 
@@ -11,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.List;
+
 @Log4j
 public class CityDAO implements GenericDAO<City> {
     private ConnectionPool connectionPool = ConnectionPool.getConnectionPoolInstance();
@@ -20,7 +19,7 @@ public class CityDAO implements GenericDAO<City> {
         String sql = "INSERT INTO cities (name) VALUES (?)";
 
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
 
             preparedStatement.setString(1, city.getName());
             preparedStatement.executeUpdate();
@@ -30,21 +29,21 @@ public class CityDAO implements GenericDAO<City> {
     }
 
     @Override
-    public List<City> getAll(){
+    public List<City> getAll() {
         return null;
     }
 
-    public Route getByID(int id){
+    public Route getByID(int id) {
         return null;
     }
 
     @Override
-    public void update(City object){
+    public void update(City object) {
 
     }
 
     @Override
-    public void remove(City object){
+    public void remove(City object) {
 
     }
 }

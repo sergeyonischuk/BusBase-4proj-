@@ -1,9 +1,7 @@
 package study.ua.DAO;
 
 import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Logger;
 import study.ua.connection.ConnectionPool;
-import study.ua.connection.DaoFactory;
 import study.ua.entityes.Application;
 import study.ua.entityes.Driver;
 import study.ua.enums.Status;
@@ -12,14 +10,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 @Log4j
 public class ConfirmedAppDAO {
     private ConnectionPool connectionPool = ConnectionPool.getConnectionPoolInstance();
+
     public void add(Application app, Driver driver) {
         String sql = "INSERT INTO confirmed_applications (application_id, driver_id) VALUES (?,?)";
 
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
 
             preparedStatement.setInt(1, app.getId());
             preparedStatement.setString(2, driver.getPasportID());
@@ -30,10 +30,10 @@ public class ConfirmedAppDAO {
         }
     }
 
-    public void changeStatus(Status status, int appID){
+    public void changeStatus(Status status, int appID) {
         String sql = "UPDATE applications SET status =? WHERE id =?";
         try (Connection connection = connectionPool.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(sql);){
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);) {
 
             preparedStatement.setString(1, status.name());
             preparedStatement.setInt(2, appID);

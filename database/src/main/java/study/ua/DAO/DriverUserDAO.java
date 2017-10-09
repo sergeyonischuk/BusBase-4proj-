@@ -1,15 +1,14 @@
 package study.ua.DAO;
 
 import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Logger;
 import study.ua.connection.ConnectionPool;
-import study.ua.connection.DaoFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
 @Log4j
 public class DriverUserDAO implements GenericDAO {
     private ConnectionPool connectionPool = ConnectionPool.getConnectionPoolInstance();

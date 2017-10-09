@@ -1,9 +1,7 @@
 package study.ua.commands.driver;
 
-import lombok.extern.log4j.Log4j;
 import study.ua.commands.Command;
 import study.ua.entityes.Bus;
-import study.ua.entityes.Driver;
 import study.ua.entityes.User;
 import study.ua.enums.Condition;
 import study.ua.services.DispatcherService;
@@ -13,7 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-@Log4j
+
 public class BusConditionCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

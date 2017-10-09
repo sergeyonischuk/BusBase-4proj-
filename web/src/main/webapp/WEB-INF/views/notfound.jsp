@@ -1,10 +1,10 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Title</title>
+    <title>404</title>
 </head>
 <body>
-Page not found
+<h3>Error 404: page not found</h3>
 </body>
 </html>

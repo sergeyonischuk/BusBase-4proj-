@@ -2,7 +2,6 @@ package study.ua.DAO;
 
 
 import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Logger;
 import study.ua.connection.ConnectionPool;
 import study.ua.entityes.User;
 import study.ua.enums.UserType;

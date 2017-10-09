@@ -1,14 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: SOnischuk
-  Date: 08.10.2017
-  Time: 0:04
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-    <title>Title</title>
+    <title>Same condition</title>
 </head>
 <body>
 Bus already have this condition status!

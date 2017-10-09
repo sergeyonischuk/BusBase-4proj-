@@ -1,7 +1,6 @@
 package study.ua.DAO;
 
 import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Logger;
 import study.ua.connection.ConnectionPool;
 import study.ua.entityes.Application;
 import study.ua.enums.Grade;
@@ -10,6 +9,7 @@ import study.ua.enums.Status;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 @Log4j
 public class ApplicationDAO implements GenericDAO<Application> {
     private ConnectionPool connectionPool = ConnectionPool.getConnectionPoolInstance();

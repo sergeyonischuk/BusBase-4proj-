@@ -2,19 +2,21 @@ package study.ua.connection;
 
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.extern.log4j.Log4j;
-import org.apache.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+
 @Log4j
 public class ConnectionPool {
     private static ConnectionPool connectionPool;
     private static HikariDataSource dataSource;
     private static final Integer CONNECTION_POOL_SIZE = 10;
-    private ConnectionPool(){}
+
+    private ConnectionPool() {
+    }
 
     public static ConnectionPool getConnectionPoolInstance() {
-        if(connectionPool == null) {
+        if (connectionPool == null) {
             connectionPool = new ConnectionPool();
             dataSource = new HikariDataSource();
             dataSource.setUsername("root");

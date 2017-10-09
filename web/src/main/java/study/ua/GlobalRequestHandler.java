@@ -29,8 +29,7 @@ public class GlobalRequestHandler implements Command {
         GET_HANDLERS.put("changeBusCondition", new BusConditionCommand());
 
         POST_HANDLERS.put("menu", new LoginCommand());
-        POST_HANDLERS.put("delegateApp", new DelegateAppCommand());
-
+        POST_HANDLERS.put("closeApp", new CloseApplicationCommand());
     }
 
     @Override

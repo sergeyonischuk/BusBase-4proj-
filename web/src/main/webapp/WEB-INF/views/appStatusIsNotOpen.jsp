@@ -1,7 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>App status is not open</title>
 </head>
 <body>
 This application is in progress or closed.
