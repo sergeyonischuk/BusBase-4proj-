@@ -1,15 +1,22 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%> <html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>Автостанция | Главная страница</title> </head>
-<body> <h1>Страница входа</h1>
-<center>
-    <h2>Автостанция</h2>
-    <form action="busbase/menu" method="post">
-        <br/>Login:<input type="text" name="username">
-        <br/>Password:<input type="password" name="password">
-        <br/><input type="submit" value="Submit">
-    </form>
-</center>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Home page | Authorization</title>
+	<link rel="stylesheet" href="/recourses/bootstrap.min.css">
+	<link rel="stylesheet" href="/recourses/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="/recourses/main.css">
+</head>
+<body>
+	<div class="wrapper login">
+		<h2>Please sign in</h2>
+
+		<form action="busbase/menu" method="post" class="form form-signin">
+			<input type="text" name="username" class="form-control" placeholder="Login" required>
+			<input type="password" name="password" class="form-control" placeholder="Password" required>
+			<button class="btn btn-lg btn-primary btn-block" type="submit" value="Submit">Sign in</button>
+		</form>
+	</div>
 </body>
 </html>

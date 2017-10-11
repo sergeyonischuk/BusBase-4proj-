@@ -2,7 +2,11 @@
 <%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-    <title>Driver Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Driver app</title>
+    <link rel="stylesheet" href="/recourses/bootstrap.min.css">
+    <link rel="stylesheet" href="/recourses/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/recourses/main.css">
 </head>
 <body>
 <form action="closeApp">
@@ -31,9 +35,12 @@
         <a href="driverMain">Back on main</a>
     </c:when>
     <c:otherwise>
-        You have no current applications
-        <br />
-        <a href="driverMain">Back on main</a>
+    <div class="wrapper">
+        <div class="alert alert-warning">
+            You have no current applications
+        </div>
+        <a href="driverMain" class="btn btn-warning">Back on main</a>
+    </div>
     </c:otherwise>
 </c:choose>
 </form>

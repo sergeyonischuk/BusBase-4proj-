@@ -1,11 +1,20 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
-    <title>Changed condition</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Title</title>
+	<link rel="stylesheet" href="/recourses/bootstrap.min.css">
+	<link rel="stylesheet" href="/recourses/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="/recourses/main.css">
 </head>
 <body>
-Bus condition was changed!
-<br>
-<a href="driverMain">Back on main</a>
+	<div class="wrapper">
+		<div class="alert alert-success">
+			Bus condition was changed!
+		</div>
+
+		<a href="driverMain" class="btn btn-success">Back on main</a>
+	</div>
 </body>
 </html>

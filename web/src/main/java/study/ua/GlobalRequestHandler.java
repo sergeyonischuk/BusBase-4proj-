@@ -2,6 +2,7 @@ package study.ua;
 
 import study.ua.commands.Command;
 import study.ua.commands.LoginCommand;
+import study.ua.commands.LogoutCommand;
 import study.ua.commands.dispatcher.*;
 import study.ua.commands.driver.*;
 
@@ -27,9 +28,13 @@ public class GlobalRequestHandler implements Command {
         GET_HANDLERS.put("dispatcherMain", new DispatcherMainCommand());
         GET_HANDLERS.put("driverMain", new DriverMainCommand());
         GET_HANDLERS.put("changeBusCondition", new BusConditionCommand());
+        GET_HANDLERS.put("logout", new LogoutCommand());
+
 
         POST_HANDLERS.put("menu", new LoginCommand());
         POST_HANDLERS.put("closeApp", new CloseApplicationCommand());
+        POST_HANDLERS.put("delegateApp", new DelegateAppCommand());
+        POST_HANDLERS.put("driverApp", new DriverAppCommand());
     }
 
     @Override

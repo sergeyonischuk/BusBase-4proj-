@@ -33,7 +33,7 @@ public class RouterServlet extends HttpServlet {
 
         Command command = mapping.get(request.getRequestURI()
                 .replace("/busbase/", "")
-                .replaceAll("/\\d+/\\?+", ""));
+                .replaceAll("/\\d+", ""));
         if (command == null) {
             request.getRequestDispatcher("/WEB-INF/views/notfound.jsp").forward(request, response);
         } else {

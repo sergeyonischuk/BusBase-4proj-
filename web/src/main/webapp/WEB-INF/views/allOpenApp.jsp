@@ -4,11 +4,15 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Dispatcher menu | All open applications</title>
+    <link rel="stylesheet" href="/recourses/bootstrap.min.css">
+    <link rel="stylesheet" href="/recourses/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="/recourses/main.css">
 </head>
 <body>
 <c:choose>
     <c:when test="${appRouteMap!=null}">
-        <table>
+        <table class="table">
+            <thead>
             <tr>
                 <th>id</th>
                 <th>grade</th>
@@ -31,9 +35,8 @@
     <c:otherwise>
         There is no open applications
         <br />
-        <a href="dispatcherMain">Back on main</a>
     </c:otherwise>
 </c:choose>
-<a href="dispatcherMain">Back on main</a>
+<a href="dispatcherMain" class="btn btn-success">Back on main</a>
 </body>
 </html>
