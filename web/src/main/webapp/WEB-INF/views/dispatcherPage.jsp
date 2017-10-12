@@ -3,7 +3,7 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>Title</title>
+	<title>Dispatcher page</title>
 	<link rel="stylesheet" href="/recourses/bootstrap.min.css">
 	<link rel="stylesheet" href="/recourses/bootstrap-theme.min.css">
 	<link rel="stylesheet" href="/recourses/main.css">
@@ -29,9 +29,8 @@
 		</div>
 
 		<form method = "POST" action = "delegateApp" class="form form-signin">
-			<input type="text" name="appID" class="form-control" placeholder="Delegate Application Application ID" required>
+			<input type="text" name="appID" class="form-control" placeholder="Application ID" required>
 			<input type="text" name="driverID" class="form-control" placeholder="Driver ID" required>
-
 			<button class="btn btn-lg btn-primary btn-block" type="submit" value="Delegate" name="delegateApp">Delegate</button>
 		</form>
 		<a href="logout" class="btn btn-danger">Logout</a>

@@ -10,6 +10,8 @@
 </head>
 <body>
 <form action="allDrivers">
+<c:choose>
+    <c:when test="${drivers!=null}">
     <table class="table">
         <thead>
         <tr>
@@ -19,6 +21,8 @@
             <th>Bus model</th>
             <th>Bus grade</th>
         </tr>
+        </thead>
+        <tbody>
         <c:forEach items="${drivers}" var="i">
             <tr>
                 <td>${i.getPasportID()}</td>
@@ -28,8 +32,22 @@
                 <td>${i.getBus().getGrade()}</td>
             </tr>
         </c:forEach>
+        </tbody>
     </table>
+    </c:when>
+    <c:otherwise>
+        There is no open drivers in database
+        <br />
+    </c:otherwise>
+</c:choose>
 </form>
+<div class="wrapper dispatcher">
+<form method = "POST" action = "delegateApp" class="form form-signin">
+    <input type="text" name="appID" class="form-control" placeholder="Application ID" required>
+    <input type="text" name="driverID" class="form-control" placeholder="Driver ID" required>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" value="Delegate" name="delegateApp">Delegate</button>
+</form>
+</div>
 <a href="dispatcherMain" class="btn btn-success">Back on main</a>
 </body>
 </html>

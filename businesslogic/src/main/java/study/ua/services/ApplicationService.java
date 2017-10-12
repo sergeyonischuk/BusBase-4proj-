@@ -11,8 +11,16 @@ import java.util.List;
 
 @Log4j
 public class ApplicationService {
-
+    private static ApplicationService instance;
     private DaoFactory daoFactory = new DaoFactory();
+
+
+    public static ApplicationService getInstance() {
+        if (instance == null) {
+            instance = new ApplicationService();
+        }
+        return instance;
+    }
 
     public int getAppIDbyDriverID(String id) {
         ConfirmedAppDAO confirmedAppDAO = daoFactory.getConfirmedAppDAO();

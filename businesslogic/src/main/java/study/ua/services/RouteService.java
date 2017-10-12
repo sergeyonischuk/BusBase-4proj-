@@ -10,6 +10,14 @@ import java.util.List;
 
 public class RouteService {
     private DaoFactory daoFactory = new DaoFactory();
+    private static RouteService instance;
+
+    public static RouteService getInstance() {
+        if (instance == null) {
+            instance = new RouteService();
+        }
+        return instance;
+    }
 
 
     public Route getRouteByID(int id) {

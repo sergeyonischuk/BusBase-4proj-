@@ -15,8 +15,9 @@ import java.io.IOException;
 public class BusConditionCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        DriverService driverService = new DriverService();
-        DispatcherService dispatcherService = new DispatcherService();
+        DriverService driverService = DriverService.getInstance();
+        DispatcherService dispatcherService = DispatcherService.getInstance();
+
         String needed_condition = (String) req.getParameter("condition");
         Condition condition = Condition.valueOf(needed_condition);
         User user = (User) req.getSession().getAttribute("user");

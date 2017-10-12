@@ -13,6 +13,14 @@ import study.ua.enums.Status;
 @Log4j
 public class DispatcherService {
     private DaoFactory daoFactory = new DaoFactory();
+    private static DispatcherService instance;
+
+    public static DispatcherService getInstance() {
+        if (instance == null) {
+            instance = new DispatcherService();
+        }
+        return instance;
+    }
 
     public void delegateApp(int appID, String driverID) {
         ApplicationDAO applicationDAO = daoFactory.getApplicationDAO();

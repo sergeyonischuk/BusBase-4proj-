@@ -18,8 +18,8 @@ import java.util.Map;
 public class AllOpenAppCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        ApplicationService applicationService = new ApplicationService();
-        RouteService routeService = new RouteService();
+        ApplicationService applicationService = ApplicationService.getInstance();
+        RouteService routeService = RouteService.getInstance();
 
         List<Application> applications = applicationService.getApplicationsWithStatus(Status.OPEN);
         List<Route> routes = routeService.getRoutesFromApp(applications);

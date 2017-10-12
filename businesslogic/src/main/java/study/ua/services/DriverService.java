@@ -13,6 +13,14 @@ import java.util.List;
 @Log4j
 public class DriverService {
     private DaoFactory daoFactory = new DaoFactory();
+    private static DriverService instance;
+
+    public static DriverService getInstance() {
+        if (instance == null) {
+            instance = new DriverService();
+        }
+        return instance;
+    }
 
     public Driver getDriverByID(String id) {
         DriverDAO driverDAO = daoFactory.getDriverDAO();

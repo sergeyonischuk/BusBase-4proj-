@@ -14,8 +14,8 @@ import java.io.IOException;
 public class CloseApplicationCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        ApplicationService applicationService = new ApplicationService();
-        DriverService driverService = new DriverService();
+        ApplicationService applicationService = ApplicationService.getInstance();
+        DriverService driverService = DriverService.getInstance();
 
         User user = (User) req.getSession().getAttribute("user");
         String driverID = driverService.getDriverIdByUsername(user.getLogin());

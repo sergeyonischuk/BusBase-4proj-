@@ -16,9 +16,9 @@ import java.io.IOException;
 public class DriverAppCommand implements Command {
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        DriverService driverService = new DriverService();
-        ApplicationService applicationService = new ApplicationService();
-        RouteService routeService = new RouteService();
+        DriverService driverService = DriverService.getInstance();
+        ApplicationService applicationService = ApplicationService.getInstance();
+        RouteService routeService = RouteService.getInstance();
 
         String username = (String) req.getSession().getAttribute("username");
         String driverID = driverService.getDriverIdByUsername(username);

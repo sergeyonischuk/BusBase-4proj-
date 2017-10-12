@@ -15,7 +15,7 @@ public class AllDriversCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-        DriverService driverService = new DriverService();
+        DriverService driverService = DriverService.getInstance();
         List<Driver> drivers = driverService.getWorkingRollingStock();
         List<Bus> buses = driverService.getBusesFromDrivers(drivers);
 

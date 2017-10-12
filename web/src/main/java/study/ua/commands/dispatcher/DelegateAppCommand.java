@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class DelegateAppCommand implements Command {
-    private ApplicationService applicationService = new ApplicationService();
-    DispatcherService dispatcherService = new DispatcherService();
-    private DriverService driverService = new DriverService();
+    private ApplicationService applicationService = ApplicationService.getInstance();
+    private DispatcherService dispatcherService = DispatcherService.getInstance();
+    private DriverService driverService = DriverService.getInstance();
 
     @Override
     public String execute(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
